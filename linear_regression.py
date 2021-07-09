@@ -13,11 +13,12 @@ Exemplo:
 """
 
 
-def linear_regression(x: np.ndarray, y: np.ndarray) -> type(lambda x: m * x + n):
+def regressao_linear(x: np.ndarray, y: np.ndarray) -> type(lambda x: m * x + n):
     """ 
     Implementação da regressão linear simples. Utiliza:
     - Closure: isto é, retorna uma função interna que utiliza variáveis do enclosing scope;
     - Gradient Descent: algorítimo iterativo para achar valores locais mínimos;
+            - novo_x = x_velho - gamma * derivada_da_funcao(x_velho).
     - Mean Squared Error: distância entre o verdadeiro output e o output do modelo.
     """
     # Também chamado de epoch
@@ -42,9 +43,7 @@ def linear_regression(x: np.ndarray, y: np.ndarray) -> type(lambda x: m * x + n)
         # Derivada parcial em função do coeficiente linear
         dl_dn = (-2/length) * np.sum(y - y_model) 
 
-        # Atualização dos coeficientes
-        # Gradient descent:
-        #       - novo_x = x_velho - gamma * derivada_da_funcao(x_velho)
+        # Atualização dos coeficientes utilizando gradient descent 
         m -= gamma * dl_dm
         n -= gamma * dl_dn
 
