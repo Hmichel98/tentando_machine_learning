@@ -1,5 +1,5 @@
 import numpy as np
-import time
+from typing import Union
 
 
 def regressao_multilinear(X: np.ndarray, y: np.ndarray) -> type(lambda x_1, x_2: m1 * x_1 + m2 * x_2 + n1):
@@ -42,7 +42,7 @@ def regressao_multilinear(X: np.ndarray, y: np.ndarray) -> type(lambda x_1, x_2:
         coef_linear -= gamma * dl_dn
 
     
-    def predict(new_X: np.ndarray) -> float:
+    def predict(new_X: Union[list, np.ndarray]) -> float:
         """Função que retorna a predição do modelo multilinear"""
         return np.dot(new_X, coef_angs) + coef_linear
 
@@ -50,18 +50,20 @@ def regressao_multilinear(X: np.ndarray, y: np.ndarray) -> type(lambda x_1, x_2:
     return predict
 
 
+# Exemplo de uso
 if __name__ == "__main__":
     from sklearn.datasets import load_boston
     boston = load_boston()
     x = boston.data
     y = boston.target
 
-
-    from sklearn.preprocessing import StandardScaler
-    sc=StandardScaler()
-    x = sc.fit_transform(x)
+    def normalizacao(array: np.ndarray) -> np.ndarray:
+        return (array - array.mean(axis=0)) / array.std(axis=0)
+    
+    x = normalizacao(x)
 
     predict = regressao_multilinear(x, y)
 
+    # Código para retornar os coeficientes angulares e o linear
     print(predict.__closure__[0].cell_contents)
     print(predict.__closure__[1].cell_contents)
