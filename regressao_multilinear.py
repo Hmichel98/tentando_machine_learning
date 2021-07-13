@@ -21,7 +21,7 @@ def regressao_multilinear(X: np.ndarray, y: np.ndarray) -> type(lambda x_1, x_2:
 
     # constante presente nas derivadas parciais
     # Evita cálculo repetido (uma espécie de 'colocar em evidência')
-    constante = (-2/X.shape[1])
+    constante = (-2/X.shape[0])
 
     for _ in range(epochs):
         # predição do modelo que será comparado utilizando Mean Squared Error
